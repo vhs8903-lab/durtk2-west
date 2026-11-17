@@ -64,7 +64,7 @@ mark{background:linear-gradient(transparent 45%,#f6dc8a 45%);color:inherit;font-
 .evnote{grid-column:1/-1;font-size:12px;color:var(--muted)}
 .tlwrap{border:1px solid var(--line);border-radius:10px;background:#f6f0e4;padding:12px 14px 14px;margin:0 0 20px}
 .tlhead{font-size:13px;font-weight:900;color:#4b3b30;margin-bottom:10px}.tlhead span{font-weight:700;color:#7c302e}
-.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(78px,1fr));gap:6px;overflow-x:auto}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:6px}
 .tl li{position:relative;border:1px solid #d5c8b2;background:#fffdf7;border-radius:7px;padding:8px 7px;font-size:12px;line-height:1.45;opacity:.55;word-break:keep-all}
 .tl li b{display:block;font-size:12px;color:#5d4936}.tl li span{display:block;font-weight:700}.tl li small{display:block;color:var(--muted);margin-top:2px}
 .tl li.rev{border:2px solid #7c302e;background:#fbf0ec;opacity:.8;padding-top:20px}
@@ -105,7 +105,7 @@ const imgUrls={
 'S-l1600~12.jpg':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/S-l1600~12.jpg/500px-S-l1600~12.jpg',
 '"Factory delegation", Petrograd (April 1917) (14357611873).jpg':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/%22Factory_delegation%22%2C_Petrograd_(April_1917)_(14357611873).jpg/960px-%22Factory_delegation%22%2C_Petrograd_(April_1917)_(14357611873).jpg',
 'Red Guard Vulkan factory.jpg':'https://upload.wikimedia.org/wikipedia/commons/2/22/Red_Guard_Vulkan_factory.jpg',
-'Milrevkom proclamation.jpg':'https://upload.wikimedia.org/wikipedia/commons/0/06/Milrevkom_proclamation.jpg',
+'Milrevkom proclamation.jpg':'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Milrevkom_proclamation.jpg/960px-Milrevkom_proclamation.jpg',
 'Stalin 1920-1.jpg':'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Stalin_1920-1.jpg/500px-Stalin_1920-1.jpg'};
 function urlFor(p){return imgUrls[p.file]}
 function sourceFor(p){return common+encodeURIComponent(p.file.replace(/ /g,'_')).replace(/%2F/g,'/')} 
