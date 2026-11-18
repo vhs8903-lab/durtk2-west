@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2회고사 역사 뿌셔유</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 학습지 한 장을 그대로 옮긴 세로 한 단 레이아웃: 제목 → 단원 제목 → 테두리 상자 */
+  --paper:#f7f8f6; --sheet:#ffffff; --ink:#1f2a2e; --muted:#5f6b70;
+  --line:#c9d2d0; --accent:#1d6b74; --accent-soft:#e3f0f0;
+  --ok:#1f7a3f; --ok-bg:#e6f4ea; --bad:#b3261e; --bad-bg:#fdecea;
+  --display:"Gowun Batang","Noto Serif KR",serif;
+  --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121718; --sheet:#1a2123; --ink:#e4ebec; --muted:#9aa8ab;
+  --line:#33403f; --accent:#6cc3cc; --accent-soft:#1d3134;
+  --ok:#7fd49a; --ok-bg:#16301f; --bad:#ff8a80; --bad-bg:#3a1c1a; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#121718; --sheet:#1a2123; --ink:#e4ebec; --muted:#9aa8ab;
+  --line:#33403f; --accent:#6cc3cc; --accent-soft:#1d3134;
+  --ok:#7fd49a; --ok-bg:#16301f; --bad:#ff8a80; --bad-bg:#3a1c1a; color-scheme:dark;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:2.1}
+.sheet{max-width:860px;margin:0 auto;padding:28px 20px 120px;background:var(--sheet);min-height:100%}
+h1{font-family:var(--display);font-size:1.7rem;line-height:1.4;margin:8px 0 4px;text-wrap:balance}
+.name{display:flex;gap:8px;align-items:center;color:var(--muted);border-bottom:1px dashed var(--line);padding-bottom:12px;margin-bottom:8px}
+.name input{border:none;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;width:220px;padding:0 4px}
+h2{font-family:var(--display);font-size:1.3rem;margin:36px 0 4px;padding:6px 12px;background:var(--accent-soft);border-left:5px solid var(--accent);line-height:1.5}
+h3{font-size:1.05rem;font-weight:700;margin:24px 0 6px;line-height:1.5}
+.box{border:1.5px solid var(--ink);padding:10px 16px;border-radius:2px}
+.ln{white-space:pre-wrap;word-break:keep-all}
+table{border-collapse:collapse;width:100%}
+td{border:1.5px solid var(--ink);padding:6px 12px;vertical-align:middle;word-break:keep-all}
+td.k{width:34%;text-align:center}
+input.b{font:inherit;font-weight:500;color:var(--accent);background:transparent;border:none;border-bottom:1.5px solid var(--muted);padding:0 4px;margin:0 2px;text-align:center;line-height:1.5;min-width:3.5em;max-width:100%}
+input.b:focus{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+input.b.ok{color:var(--ok);background:var(--ok-bg);border-bottom-color:var(--ok)}
+input.b.bad{color:var(--bad);background:var(--bad-bg);border-bottom-color:var(--bad)}
+.ans{display:none;font-size:.78rem;font-weight:700;color:var(--bad);background:var(--bad-bg);border-radius:3px;padding:0 5px;margin-right:2px;white-space:nowrap}
+body.show .ans{display:inline}
+body.show .ans.hit{color:var(--ok);background:var(--ok-bg)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--sheet);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;z-index:5}
+.bar button{font:inherit;font-size:.95rem;font-weight:700;border-radius:6px;padding:4px 16px;cursor:pointer;border:1.5px solid var(--accent);background:var(--sheet);color:var(--accent);line-height:1.8}
+.bar button.primary{background:var(--accent);color:var(--sheet)}
+.bar button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.score{font-weight:700;min-width:9em;text-align:center;font-variant-numeric:tabular-nums}
+.check ul{margin:0;padding-left:1.2em}
+.check a{color:var(--accent);word-break:break-all}
+.hint{color:var(--muted);font-size:.85rem;line-height:1.6;margin:6px 0 0}
+@media (max-width:480px){body{font-size:15px}.sheet{padding:20px 16px 140px}h1{font-size:1.4rem}}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <h1>사내중 2학년 2학기 2회고사 역사 뿌셔유</h1>
+  <div class="name"><label for="who">학번/이름 :</label><input id="who" autocomplete="off"></div>
+  <p class="hint">빈칸을 채운 뒤 아래의 <b>채점하기</b>를 누르세요. <b>정답 보기</b>로 답을 확인하고, <b>다시 풀기</b>로 처음부터 다시 풀 수 있어요. 입력한 내용은 이 기기에만 저장돼요.</p>
+  <div id="ws"></div>
+</main>
+<div class="bar">
+  <button id="grade" class="primary" type="button">채점하기</button>
+  <button id="reveal" type="button">정답 보기</button>
+  <button id="reset" type="button">다시 풀기</button>
+  <span class="score" id="score" aria-live="polite"></span>
+</div>
+<script>
+// {정답|다른 정답} 이 빈칸이 됩니다.
+const W = [
+ {h2:"part1. 일본사 (막부시대 ~ 제국주의)"},
+ {h3:"1. 막부시대의 특징과 구조", box:[
+  "- 의미 : 헤이안 시대 이후 나타난 무사 정권 시대",
+  "- 구조 : {천황} (상징적 존재) → {쇼군} (실질적 권력) → {다이묘} (쇼군에 충성, 토지 받음) → {사무라이|무사} → 농민·상인층"]},
+ {h3:"2. 막부시대 전개와 특징 (가-무-전-도-에)", table:[
+  ["{가마쿠라 막부|가마쿠라}","최초 막부, 고려·몽골 연합군의 공격 대비로 쇠퇴"],
+  ["{무로마치 막부|무로마치}","두 번째 막부, 후계자 싸움으로 쇠퇴"],
+  ["{전국 시대|전국}","쇼군이 되기 위한 전국 다이묘들의 경쟁 시대"],
+  ["{도요토미 히데요시|도요토미}","전국시대 종료, 임진왜란 발발"],
+  ["{에도 막부|에도}","도쿠가와 이에야스(쇼군), 에도로 중심지 이동"]]},
+ {h3:"3. 에도 막부 시대의 특징", box:[
+  "- 다이묘 강력 견제 : {산킨코타이|산킨 코타이|참근 교대} 제도",
+  "- 에도·오사카 등 대도시 발전, 경제 발전 → {조닌} 계층 등장",
+  "- 서민 문화 발달 : {우키요에} (서민의 생활과 풍속을 표현한 그림)",
+  "- 나가사키 데지마 → 네덜란드만 무역 허용 → {난학} 유입"]},
+ {h3:"4. 개항과 메이지 유신", box:[
+  "1) ({미국|1853|1853년}) 페리 함대 개항 강요 → 미일 화친 조약 체결(1854)",
+  "2) 미일 ({수호 통상|수호통상|통상}) 조약(1858) : 영사 재판권(치외법권)·최혜국 대우를 인정한 {불평등} 조약 → 막부 권위 추락",
+  "3) 막부의 굴욕적 외교, 물가 상승에 대한 {하급 무사|무사}층 불만 폭발 → 막부 붕괴, ({천황}) 중심의 새 정부 수립",
+  "4) 메이지 유신 ( {서양|서구|유럽} 모방한 대개혁)",
+  "   정치 – 봉건제 폐지, {폐번치현|헌법|입헌 정치|징병제} 시행, 천황 중심 중앙 집권 수립",
+  "   사회 – {신분제|신분 제도} 폐지, ({이와쿠라}) 사절단과 유학생을 서양에 파견",
+  "   교육 – 서양식 교육, 전 국민 {의무 교육} 시행",
+  "   경제 – 서양 기술 도입, 우편·철도·은행, 상공업 육성"]},
+ {h3:"5. 일본 제국주의 침략 과정(1) - 대한제국 강제 병합", box:[
+  "1) 1876 – 운요호 사건을 구실로 ({강화도 조약|조일 수호 조규}) 체결",
+  "2) 1895 – ({청일 전쟁}) 승리 후 시모노세키 조약 체결",
+  "3) 1895 – 삼국 간섭으로 랴오둥반도 반환",
+  "4) 1905 – ({러일 전쟁}) 승리 후 포츠머스 조약 체결",
+  "5) 1910 – {한일 병합|국권 피탈|대한 제국 강제 병합|한국 병합}"]},
+ {h3:"6. 일본 제국주의 침략 과정(2) - 중국, 동남아, 태평양전쟁", box:[
+  "6) 1931 – {만주 사변} (중국 침략의 출발)",
+  "7) 1937 – {중일 전쟁} (중국 본토 침략), 동남아 지역 침략 시작",
+  "8) 일본의 동남아 침략 → 미국이 일본에 ({석유}) 수출 금지 등으로 견제",
+  "9) 1941 – 태평양 전쟁 (미국의 {진주만} 기습 공격)",
+  "10) 1942 – ({미드웨이}) 해전에서 일본 패배 → 전세 역전",
+  "11) 1945 – 원자 폭탄 투하 후 일본 항복",
+  "12) 1947 – 평화 헌법 시행 : 전쟁 포기, {군대|군} 보유 금지"]},
+ {h2:"part2. 서양사 (신항로 개척 ~ 1차 세계 대전·러시아 혁명)"},
+ {h3:"1. 유럽이 신항로 개척에 나선 배경", box:[
+  "1) 마르코 폴로의 ({동방견문록})에 자극",
+  "2) 동방의 {향신료}, 비단, 도자기 인기",
+  "3) 이슬람, ({이탈리아}) 상인의 동방 무역 독점",
+  "   → 동방과 직접 교류 희망",
+  "4) 천문학·지리학·선박 발달, 나침반 도입",
+  "5) 에스파냐, ({포르투갈}) 등이 항해 후원"]},
+ {h3:"1-2. 신항로 탐험가와 그들이 발견한 항로", box:[
+  "1) ({콜럼버스}): 서인도 제도 도착(1492)",
+  "2) 바스쿠 다 가마: 희망봉 → 인도 캘리컷(1498)",
+  "3) 마젤란 일행: ({세계 일주}) 성공(1519~1522)",
+  "※ 순서: 콜럼버스 → 바스쿠 다 가마 → 마젤란"]},
+ {h3:"1-3. 신항로 개척으로 나타난 변화", box:[
+  "1) 지리 지식 확대, 대륙 간 교류 활발",
+  "2) 경제 중심지: 지중해 → ({대서양|대서양 연안})",
+  "3) ({삼각}) 무역: 유럽-아프리카-아메리카",
+  "4) 네덜란드·영국·프랑스, ({동인도 회사}) 설립",
+  "5) 신작물 유입(옥수수, 감자, 카카오 등)",
+  "6) 아메리카의 금·은 유입 → 물가 {상승|폭등}",
+  "7) 아메리카: 아스테카·잉카 문명 파괴,",
+  "   ({전염병|천연두})으로 원주민 인구 급감",
+  "8) 아프리카: ({노예}) 무역 → 대농장에 투입"]},
+ {h3:"2. 종교 개혁과 종교 전쟁", box:[
+  "1) 배경 : 부패한 성직자와 교회에 대한 비판",
+  "2) ({루터})(독일): 면벌부 비판 → 95개조",
+  "   반박문 발표 → 제후와 농민의 지지",
+  "3) ({칼뱅})(스위스): 예정설 → 상공업자 환영",
+  "4) 영국: ({영국 국교회|국교회|성공회}) 성립 - 국왕이 교회 수장",
+  "5) 구교 ↔ 신교 → {종교} 전쟁(독일 30년 전쟁)"]},
+ {h3:"2-1. 재정·군사 국가의 등장 (영국과 프랑스)", box:[
+  "1) 의미: 강력한 군사력, 효율적 ({조세|세금}) 제도,",
+  "   중앙 집권적 행정 기구를 갖춘 국가",
+  "2) 배경: 기사 → ({화약|총포}) 무기, 대규모 {보병|상비군} 중심",
+  "3) 재정: ({중상주의}) 정책(수출↑ 수입↓), 관료제",
+  "4) 영국: 모직물 산업 발달 → 상공업자 성장",
+  "   → 국가가 상공업 보호, 그 대가로 재정 지원",
+  "   엘리자베스 1세 - 무적함대 격파, ({동인도 회사}) 설립",
+  "   명예혁명 이후 - 정부·의회 협력, {잉글랜드} 은행(1694)",
+  "5) 프랑스: 루이 14세 - ({왕권신수설}) 주장,",
+  "   베르사유 궁전, ({콜베르})을 등용해 중상주의 강화",
+  "   의회 허락 없는 세금, 잦은 전쟁 → 재정 악화",
+  "   → 훗날 혁명의 배경"]},
+ {h3:"3. 영국 시민혁명 (청교도 혁명 – 명예혁명)", box:[
+  "1) 찰스 1세 의회 무시, ({청교도}) 탄압",
+  "   → 의회의 {권리 청원} 제출(1628)",
+  "2) 청교도 혁명(1642): 국왕이 문서 무시",
+  "   → 의회파 vs 왕당파 내전 → 찰스 1세 처형",
+  "   → ({크롬웰}) 공화정 → 독재 → 왕정 복고",
+  "3) {명예혁명}(1688): 제임스 2세 추방 → 메리와",
+  "   윌리엄 공동 왕 → ({권리 장전}) 승인",
+  "4) 결과: 의회 중심의 {입헌 군주제|입헌 군주정|의회 정치} 기초 마련"]},
+ {h3:"3-1. 미국 독립 혁명과 미국의 발전 (남북 전쟁)", box:[
+  "1) 영국인 이주 → 동부에 13개 ({식민지}) 건설",
+  "2) 영국의 과세(인지세법·차법) → ({보스턴 차}) 사건(1773)",
+  "3) 독립 전쟁 → {독립 선언|독립 선언서|독립 선언문} 발표(1776)",
+  "4) 식민지군 승리 → 파리 조약, 독립 인정(1783)",
+  "5) 헌법 제정: ({연방})제 + 공화정 + {삼권 분립}",
+  "   → 세계 최초 민주 공화국 미국 탄생(1789)",
+  "6) 성격: 식민 지배에서 벗어난 {독립} 운동",
+  "   + 자유·국민 주권 바탕의 공화정을 세운 {시민} 혁명",
+  "7) 남북 전쟁",
+  "   북부: 상공업, 임금 노동자 → 노예제 ({반대})",
+  "   남부: 대농장, 노예 노동 → 노예제 ({찬성})",
+  "   → 노예제 확대 반대 ({링컨}) 대통령 당선",
+  "   → {남부}가 연방 탈퇴 → 남북 전쟁(1861)",
+  "   → 노예 해방 선언(1863) → 북부에 유리한 국제 여론",
+  "   → 북부 승리 → 전쟁 후 대륙 횡단 철도 완성(1869)"]},
+ {h3:"3-2. 프랑스 구제도의 모순", box:[
+  "1) 1·2신분(성직자·귀족): 소수, 토지 독점,",
+  "   {세금|조세} 면제 / 3신분(평민): 세금 부담",
+  "2) 계몽사상, ({미국 독립|미국}) 혁명의 영향",
+  "3) 루이 16세, 재정 위기로 ({삼부회}) 소집",
+  "   → 3신분에 불리한 투표 방식 → 불만 폭발"]},
+ {h3:"3-3. 프랑스 혁명 관련 사건 순서", box:[
+  "① 평민 대표들의 ({테니스 코트})의 서약(1789) - 헌법 제정 요구",
+  "② ({바스티유}) 감옥 습격 → 인권 선언",
+  "③ 왕정 폐지, 공화정 수립(1792) → 루이 16세 처형(1793)",
+  "   → ({공포}) 정치",
+  "④ 5명의 총재가 이끄는 총재 정부 → ({나폴레옹})의 쿠데타(1799)",
+  "⑤ 황제 즉위, ({나폴레옹}) 법전 편찬 - 법 앞의 평등",
+  "⑥ {대륙 봉쇄}령 → 러시아 원정 실패 → 몰락",
+  "→ 의의: 자유·평등 이념, ({민족|국민})주의 전파",
+  "→ 나폴레옹 평가",
+  "   긍정: 법전 편찬, 자유·평등 이념 확산",
+  "   부정: 스스로 황제 즉위, 정복 전쟁으로 다른 나라의 자주성 침해"]},
+ {h3:"4. 빈 체제의 의미와 저항", box:[
+  "1) 빈 체제: 유럽을 ({프랑스 혁명}) 이전으로",
+  "   되돌림 → 자유주의·민족주의 탄압",
+  "   예) 프랑스 왕정 복구, 오스트리아의 이탈리아 간섭",
+  "2) 프랑스: 7월 혁명(1830) → ({입헌 군주정|입헌 군주제|7월 왕정}) 수립",
+  "   {2월} 혁명(1848) → 공화정, 빈 체제 붕괴",
+  "3) 영국: ({차티스트}) 운동 - 노동자 선거권 요구"]},
+ {h3:"4-1. 빈 체제 붕괴 이후 이탈리아·독일 통일", box:[
+  "1) 이탈리아: ({사르데냐|사르데냐 왕국|카보우르}) 중북부 통일 + 가리발디",
+  "   남부 정복 → 이탈리아 왕국(1861)",
+  "2) 독일: 프로이센 ({비스마르크})의 {철혈} 정책",
+  "   → 오스트리아 격파 → 프랑스 격파",
+  "   → ({독일 제국}) 성립(1871)"]},
+ {h3:"5. 산업 혁명의 의미와 변화", box:[
+  "1) 의미: 수공업 → ({공장제 기계}) 공업으로 변화",
+  "2) {영국}에서 시작: 정치 안정, 석탄·철 풍부,",
+  "   넓은 식민지(원료 공급지·시장),",
+  "   인클로저 운동 → 농민이 도시로 → 노동력 풍부",
+  "3) ({면직물}) 공업 시작 → 와트의 {증기 기관} 개량",
+  "   → 증기 기관차·증기선, 전신·전화",
+  "4) 확산: 벨기에·프랑스 → 미국·독일 → 러시아·일본",
+  "5) 자본주의 확립, ({자본가|노동자}) 계급 성장",
+  "6) 긍정적 변화: 생산량 증가, 값싼 물건 보급,",
+  "   교통·통신 발달로 생활이 편리해짐"]},
+ {h3:"5-1. 산업 혁명의 문제점과 대응", box:[
+  "1) 빈부 격차",
+  "2) ({도시}) 문제: 주택 부족, 위생 불량, 환경 오염",
+  "3) ({노동}) 문제: 저임금, 장시간 노동, 아동 노동",
+  "4) ({러다이트|기계 파괴}) 운동: 노동자의 기계 파괴",
+  "5) 사회주의: ({마르크스}) - 계급 투쟁, 생산 수단",
+  "   공동 소유로 평등한 사회 주장"]},
+ {h3:"6. 제국주의 의미와 배경", box:[
+  "1) 의미: 군사력·경제력으로 약소국을",
+  "   ({식민지})로 삼는 서양 열강의 팽창 정책",
+  "2) 배경: 값싼 원료와 ({시장|상품 시장}) 확보 경쟁",
+  "3) 정당화: ({사회 진화론}), 인종주의",
+  "4) 아시아: 영국 - 인도·동남아 / 미국 - {필리핀}"]},
+ {h3:"6-1. 아프리카 식민지 경쟁 - 영국과 프랑스의 충돌", box:[
+  "1) 영국 ({종단}) 정책: 이집트 카이로 ↔ 남아프리카 케이프타운",
+  "2) 프랑스 ({횡단}) 정책: 서쪽 알제리 ↔ 동쪽 마다가스카르",
+  "3) ({파쇼다}) 사건(1898): 수단에서 충돌",
+  "4) ({에티오피아})·라이베리아 빼고 모두 식민지화"]},
+ {h3:"6-2. 제1차 세계 대전 (1914~1918)", box:[
+  "1) 배경: ({3국 동맹|삼국 동맹}) ↔ 3국 협상 대립",
+  "   발칸반도: 범게르만주의(독일·오스트리아)",
+  "   ↔ 범({슬라브})주의(러시아·세르비아)",
+  "2) 발단: ({사라예보}) 사건 - 오·헝 황태자 암살",
+  "   → 오스트리아·헝가리가 {세르비아}에 선전 포고",
+  "3) 전개(순서): 이탈리아 협상국 편 참전(1915)",
+  "   → 서부 전선 {참호}전 → 독일 무제한 ({잠수함}) 작전",
+  "   → 미국 참전(1917) → 러시아 혁명 후 단독 조약,",
+  "   전쟁 이탈(1918.3) → 독일 항복(1918.11)",
+  "4) 특징: ({총력}) 전쟁 - 국가의 모든 사람과 자원 동원",
+  "   (여성은 군수 공장, 식민지에서도 병사·물자 동원),",
+  "   신무기(탱크·독가스)",
+  "5) 결과: 파리 강화 회의 → ({베르사유}) 조약",
+  "   (독일 영토 축소·배상금), ({국제 연맹}) 창설",
+  "6) 영향: 여성의 전쟁 기여 → 전쟁 후 여성 {참정|선거|투표}권 확대"]},
+ {h3:"7. 러시아 혁명 (1917)", box:[
+  "1) 배경: ({차르})의 전제 정치, 러일 전쟁 패배,",
+  "   ({피의 일요일}) 사건(1905)",
+  "2) ({3월|2월}) 혁명: 노동자·군인 봉기 → 차르 퇴위",
+  "   → 임시 정부 수립",
+  "   → 임시 정부가 전쟁 계속, 토지·식량 문제 해결 못 함",
+  "   → 민중 불만",
+  "3) ({11월|10월}) 혁명: ({레닌})의 볼셰비키 봉기",
+  "   → ({소비에트}) 정권, 세계 최초의 사회주의 국가",
+  "   → 사회주의 이념이 세계로 확산",
+  "4) 이후: 1차 대전 이탈 → 신경제 정책",
+  "   → ({소련|소비에트 연방|소비에트 사회주의 공화국 연방}) 수립(1922)",
+  "5) 레닌 사망 후 {스탈린} 집권",
+  "   → 일당 독재, 반대파 숙청, 개인 숭배"]},
+];
+
+const KEY = "ppusyeoyu-2026-2-2";
+const blanks = [];
+const norm = s => s.toLowerCase().replace(/[\s·\.,()]/g,"").replace(/(막부|사건|년)$/,"");
+
+function renderLine(text, parent){
+  const re = /\{([^}]+)\}/g; let last = 0, m;
+  while ((m = re.exec(text))){
+    parent.append(document.createTextNode(text.slice(last, m.index)));
+    const alts = m[1].split("|");
+    const i = blanks.length;
+    const inp = document.createElement("input");
+    inp.className = "b"; inp.id = "b" + i; inp.type = "text";
+    inp.autocomplete = "off"; inp.spellcheck = false;
+    inp.setAttribute("aria-label", "빈칸 " + (i + 1));
+    inp.style.width = (Math.max(...alts.slice(0,1).map(a => a.length)) * 1.15 + 2.2) + "em";
+    const ans = document.createElement("span");
+    ans.className = "ans"; ans.textContent = alts[0];
+    parent.append(inp, ans);
+    blanks.push({inp, ans, alts});
+    last = re.lastIndex;
+  }
+  parent.append(document.createTextNode(text.slice(last)));
+}
+
+const ws = document.getElementById("ws");
+for (const s of W){
+  if (s.h2){ const h = document.createElement("h2"); h.textContent = s.h2; ws.append(h); continue; }
+  const h = document.createElement("h3"); h.textContent = s.h3; ws.append(h);
+  if (s.box){
+    const box = document.createElement("div"); box.className = "box";
+    for (const l of s.box){ const d = document.createElement("div"); d.className = "ln"; renderLine(l, d); box.append(d); }
+    ws.append(box);
+  } else if (s.table){
+    const wrap = document.createElement("div"); wrap.style.overflowX = "auto";
+    const t = document.createElement("table");
+    for (const [k, v] of s.table){
+      const tr = document.createElement("tr");
+      const a = document.createElement("td"); a.className = "k"; renderLine(k, a);
+      const b = document.createElement("td"); b.textContent = v;
+      tr.append(a, b); t.append(tr);
+    }
+    wrap.append(t); ws.append(wrap);
+  }
+}
+
+const isRight = b => { const v = norm(b.inp.value); return v !== "" && b.alts.some(a => norm(a) === v); };
+const score = document.getElementById("score");
+
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify({who: document.getElementById("who").value, v: blanks.map(b => b.inp.value)})); } catch(e){}
+}
+function load(){
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (!d) return;
+    document.getElementById("who").value = d.who || "";
+    d.v.forEach((v, i) => { if (blanks[i]) blanks[i].inp.value = v; });
+  } catch(e){}
+}
+function clearMarks(){ blanks.forEach(b => b.inp.classList.remove("ok","bad")); }
+
+function grade(){
+  let n = 0;
+  blanks.forEach(b => {
+    const r = isRight(b); if (r) n++;
+    b.inp.classList.toggle("ok", r); b.inp.classList.toggle("bad", !r);
+    b.ans.classList.toggle("hit", r);
+  });
+  score.textContent = n + " / " + blanks.length + " 정답";
+  const firstBad = blanks.find(b => !isRight(b));
+  if (firstBad) firstBad.inp.scrollIntoView({block:"center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+}
+
+document.getElementById("grade").addEventListener("click", grade);
+document.getElementById("reveal").addEventListener("click", e => {
+  blanks.forEach(b => b.ans.classList.toggle("hit", isRight(b)));
+  const on = document.body.classList.toggle("show");
+  e.currentTarget.textContent = on ? "정답 숨기기" : "정답 보기";
+});
+document.getElementById("reset").addEventListener("click", () => {
+  blanks.forEach(b => { b.inp.value = ""; });
+  clearMarks(); score.textContent = "";
+  document.body.classList.remove("show");
+  document.getElementById("reveal").textContent = "정답 보기";
+  save(); window.scrollTo(0, 0);
+  if (blanks[0]) blanks[0].inp.focus({preventScroll:true});
+});
+blanks.forEach((b, i) => {
+  b.inp.addEventListener("input", () => { b.inp.classList.remove("ok","bad"); save(); });
+  b.inp.addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); (blanks[i+1] || b).inp.focus(); } });
+});
+document.getElementById("who").addEventListener("input", save);
+load();
+score.textContent = "빈칸 " + blanks.length + "개";
+</script>
+</body>
+</html>
